@@ -5,6 +5,7 @@ const allClearButton=document.querySelector('[all-clear-button]')
 const prevScreenData=document.querySelector('[ data-previous ]')
 const currScreenData=document.querySelector('[data-current ]')
 const delButton=document.querySelector('[delete-button]')
+const timeButton=document.querySelector('[time-button]');
 let symbol='';
 class Calculator{
     constructor(prevScreenData,currScreenData){
@@ -28,13 +29,28 @@ class Calculator{
         }
        
         this.operation=operation
-        console.log(operation);
+        // console.log(operation);
         symbol=operation;
        this.prevValue=this.currValue
        this.currValue=''
     }
     delete(){
         this.currValue = this.currValue.toString().slice(0, -1)
+    }
+    storage(result){
+        console.log(result)
+        let numberArray=[]
+        numberArray.push(result);
+        console.log(numberArray)
+        // localStorage.setItem('items', JSON.stringify(itemsArray))
+        // for (var i = 0; i < localStorage.length; i++)
+        // {
+        //     localStorage.setItem('resultstorage', resultValue.innerText);
+        //      output.innerText= localStorage.getItem('resultstorage');
+             
+        // }
+
+        this.currScreenData.innerText=output.innerText;
     }
     changeDisplay(){
         this.currScreenData.innerText=this.currValue;
@@ -78,6 +94,8 @@ class Calculator{
         this.currValue=result
         symbol=''
         this.prevValue=''
+        // this.currScreenData.innerText=''
+       
     }
 }
 const calculator=new Calculator(prevScreenData,currScreenData)
@@ -104,5 +122,9 @@ allClearButton.addEventListener('click',()=>{
 delButton.addEventListener('click',()=>{
     calculator.delete();
     calculator.changeDisplay();
+})
+timeButton.addEventListener('click',()=>{
+    calculator.storage(currScreenData.innerText+symbol +prevScreenData.innerText);
+    
 })
 
